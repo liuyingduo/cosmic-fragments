@@ -10,6 +10,7 @@ export function createBackgroundShapes() {
   group.add(createRing(2.8, 1.7, -9.2, 2.2));
   group.add(createTorus());
   group.add(createGlowBlocks());
+  group.add(createTimeStreaks());
   group.add(createLineField());
 
   return group;
@@ -63,21 +64,43 @@ function createGlowBlocks() {
     opacity: 0.52,
   });
 
-  for (let i = 0; i < 18; i += 1) {
+  for (let i = 0; i < 44; i += 1) {
     const block = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, 0.08), material);
-    block.position.set((i % 6) - 2.5, Math.floor(i / 6) * 0.7 - 0.8, -7 - i * 0.25);
+    const side = i % 2 === 0 ? -1 : 1;
+    block.position.set(side * (2.7 + (i % 5) * 0.24), -1.9 + (i % 9) * 0.48, -4 - i * 0.78);
     block.scale.setScalar(1 + (i % 3) * 0.4);
     group.add(block);
   }
   return group;
 }
 
+function createTimeStreaks() {
+  const points = [];
+
+  for (let i = 0; i < 80; i += 1) {
+    const side = i % 2 === 0 ? -1 : 1;
+    const x = side * (2.3 + (i % 8) * 0.38);
+    const y = -2.1 + (i % 11) * 0.42;
+    const z = -2.5 - i * 0.46;
+    points.push(new THREE.Vector3(x, y, z));
+    points.push(new THREE.Vector3(x + side * 0.18, y + 0.03, z - 1.2));
+  }
+
+  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+  const material = new THREE.LineBasicMaterial({
+    color: 0x8efcff,
+    transparent: true,
+    opacity: 0.22,
+  });
+  return new THREE.LineSegments(geometry, material);
+}
+
 function createLineField() {
   const points = [];
-  for (let i = 0; i < 34; i += 1) {
+  for (let i = 0; i < 64; i += 1) {
     const x = -5 + i * 0.32;
-    points.push(new THREE.Vector3(x, -2.1, -6.5 - (i % 5) * 0.6));
-    points.push(new THREE.Vector3(x + 0.12, 2.4, -8.2 - (i % 4) * 0.4));
+    points.push(new THREE.Vector3(x, -2.1, -6.5 - i * 0.35));
+    points.push(new THREE.Vector3(x + 0.12, 2.4, -8.2 - i * 0.35));
   }
 
   const geometry = new THREE.BufferGeometry().setFromPoints(points);

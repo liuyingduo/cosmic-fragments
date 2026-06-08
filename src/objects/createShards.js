@@ -3,7 +3,7 @@ import { randomFloat, randomInt, randomSign } from "../utils/random.js";
 
 const SHARD_COLORS = [0x42c9ff, 0x8df3ff, 0x7690ff, 0xb5ecff];
 
-export function createShards(count = 140) {
+export function createShards(count = 175) {
   const group = new THREE.Group();
   group.name = "GlassShards";
   const shards = [];
@@ -19,13 +19,9 @@ export function createShards(count = 140) {
 
 function createShard(index) {
   const mesh = new THREE.Mesh(createShardGeometry(), createShardMaterial(index));
-  const basePosition = new THREE.Vector3(
-    randomFloat(-7, 7),
-    randomFloat(-2.4, 3.4),
-    randomFloat(-9.5, 3.2),
-  );
+  const basePosition = createShardPosition(index);
   const baseRotation = new THREE.Euler(randomFloat(0, Math.PI), randomFloat(0, Math.PI), 0);
-  const scale = randomFloat(0.16, 0.58);
+  const scale = index < 88 ? randomFloat(0.22, 0.78) : randomFloat(0.12, 0.48);
 
   mesh.position.copy(basePosition);
   mesh.rotation.copy(baseRotation);
@@ -42,6 +38,24 @@ function createShard(index) {
       randomFloat(0.04, 0.32) * randomSign(),
     ),
   };
+}
+
+function createShardPosition(index) {
+  if (index < 88) {
+    const angle = randomFloat(0, Math.PI * 2);
+    const radius = Math.pow(Math.random(), 0.55) * 3.4;
+    return new THREE.Vector3(
+      Math.cos(angle) * radius,
+      Math.sin(angle) * radius * 0.72 + randomFloat(-0.18, 0.2),
+      randomFloat(1.2, 2.65),
+    );
+  }
+
+  return new THREE.Vector3(
+    randomFloat(-6.8, 6.8),
+    randomFloat(-2.5, 3.25),
+    randomFloat(-30, -3.2),
+  );
 }
 
 function createShardGeometry() {
