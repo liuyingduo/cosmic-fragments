@@ -1,0 +1,32 @@
+{
+  "models": {
+    "astronaut": "/models/astronaut.glb"
+  },
+  "hdr": {
+    "moonLab": "/hdr/moon_lab_1k.exr"
+  },
+  "textures": {
+    "moon_01": {
+      "map": "/textures/moon_01/moon_01_diff_1k.jpg",
+      "displacementMap": "/textures/moon_01/moon_01_disp_1k.png"
+    },
+    "metal_plate_02": {
+      "map": "/textures/metal_plate_02/metal_plate_02_diff_1k.jpg"
+    }
+  },
+  "textureFiles": {
+    "moon_01": [
+      "/textures/moon_01/moon_01_diff_1k.jpg",
+      "/textures/moon_01/moon_01_disp_1k.png",
+      "/textures/moon_01/moon_01_nor_gl_1k.exr",
+      "/textures/moon_01/moon_01_rough_1k.exr"
+    ],
+    "metal_plate_02": [
+      "/textures/metal_plate_02/metal_plate_02_diff_1k.jpg",
+      "/textures/metal_plate_02/metal_plate_02_disp_1k.png",
+      "/textures/metal_plate_02/metal_plate_02_metal_1k.exr",
+      "/textures/metal_plate_02/metal_plate_02_nor_gl_1k.exr",
+      "/textures/metal_plate_02/metal_plate_02_rough_1k.exr"
+    ]
+  }
+}
